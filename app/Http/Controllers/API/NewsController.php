@@ -188,7 +188,7 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, Request $request)
+    public function destroy($id)
     {
         $news = News::query()->where("id", $id)->where("id_user", Auth::user()->id)->first();
 
