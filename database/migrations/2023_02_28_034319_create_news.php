@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer("id_user");
             $table->string("title",50);
-            $table->string("banner",255);
+            $table->string("banner",255)->nullable();
             $table->text("content");
             $table->timestamps();
         });
