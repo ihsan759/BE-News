@@ -68,6 +68,34 @@ class NewsController extends Controller
             "data" => $news
         ]);
     }
+    
+//     testing
+    public function test(Request $request){
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|max:50',
+            'content' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                "status" => false,
+                "message" => $validator->errors(),
+                "data" => ""
+            ]);
+        }
+
+        $news = new News();
+
+        $news->fill($request->all());
+        $news->id_user = Auth::user()->id;
+
+        $news->save();
+
+        return response()->json([
+            "status" => true,
+            "message" => "Berhasil Menambahkan berita",
+            "data" => $news
+        ]);
+    }
 
     /**
      * Display the specified resource.
