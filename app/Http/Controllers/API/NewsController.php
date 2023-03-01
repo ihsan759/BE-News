@@ -70,7 +70,8 @@ class NewsController extends Controller
     }
     
 //     testing
-    public function test(Request $request){
+    public function test(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'title' => 'required|max:50',
             'content' => 'required'
@@ -86,6 +87,8 @@ class NewsController extends Controller
         $news = new News();
 
         $news->fill($request->all());
+        // $news['banner'] = request()->file('banner')->store('banners');
+        $news['banner'] = request()->file('banner')->store('banners', 'public');
         $news->id_user = Auth::user()->id;
 
         $news->save();
