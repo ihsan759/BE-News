@@ -7,6 +7,7 @@ use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class NewsController extends Controller
 {
@@ -157,17 +158,10 @@ class NewsController extends Controller
         $banner = $request->file('banner');
         if ($banner != null) {
 
-            $path_old = str_replace($request->getSchemeAndHttpHost(), "", $news->banner);
-            $banner_old = public_path($path_old);
-
-            unlink($banner_old);
-
-            $filename = $banner->hashName();
-            $banner->move("banner", $filename);
-            $path = $request->getSchemeAndHttpHost() . "/banner/" . $filename;
+            Storage::disk('public')->delete($news->banner);
 
             $news->fill($request->all());
-            $news->banner = $path;
+            $news['banner'] = request()->file('banner')->store('banners', 'public');
 
             $news->save();
 
@@ -198,11 +192,7 @@ class NewsController extends Controller
     {
         $news = News::query()->where("id", $id)->where("id_user", Auth::user()->id)->first();
 
-        $path_old = str_replace($request->getSchemeAndHttpHost(), "", $news->banner);
-        $banner_old = public_path($path_old);
-
-        unlink($banner_old);
-
+        Storage::disk('public')->delete($news->banner);
         $news->delete();
 
         return response()->json([
