@@ -32,50 +32,53 @@ class NewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // public function store(Request $request)
+    // {
+
+    //     $validator = Validator::make($request->all(), [
+    //         'title' => 'required|max:50',
+    //         'banner' => 'required|image|mimes:jpeg,png,jpg',
+    //         'content' => 'required'
+    //     ], $messages = [
+    //         'image' => 'Wajib Gambar',
+    //     ]);
+    //     if ($validator->fails()) {
+    //         return response()->json([
+    //             "status" => false,
+    //             "message" => $validator->errors(),
+    //             "data" => ""
+    //         ]);
+    //     }
+
+    //     $news = new News();
+
+    //     $news->fill($request->all());
+    //     $banner = $request->file('banner');
+    //     $filename = $banner->hashName();
+    //     $banner->move("banner", $filename);
+    //     $path = $request->getSchemeAndHttpHost() . "/banner/" . $filename;
+    //     $news->banner = $path;
+    //     $news->id_user = Auth::user()->id;
+
+    //     $news->save();
+
+    //     return response()->json([
+    //         "status" => true,
+    //         "message" => "Berhasil Menambahkan berita",
+    //         "data" => $news
+    //     ]);
+    // }
+    
+//     testing
     public function store(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'title' => 'required|max:50',
             'banner' => 'required|image|mimes:jpeg,png,jpg',
             'content' => 'required'
         ], $messages = [
-            'image' => 'Wajib Gambar',
-        ]);
-        if ($validator->fails()) {
-            return response()->json([
-                "status" => false,
-                "message" => $validator->errors(),
-                "data" => ""
-            ]);
-        }
-
-        $news = new News();
-
-        $news->fill($request->all());
-        $banner = $request->file('banner');
-        $filename = $banner->hashName();
-        $banner->move("banner", $filename);
-        $path = $request->getSchemeAndHttpHost() . "/banner/" . $filename;
-        $news->banner = $path;
-        $news->id_user = Auth::user()->id;
-
-        $news->save();
-
-        return response()->json([
-            "status" => true,
-            "message" => "Berhasil Menambahkan berita",
-            "data" => $news
-        ]);
-    }
-    
-//     testing
-    public function test(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'title' => 'required|max:50',
-            'content' => 'required'
-        ]);
+                    'image' => 'Wajib Gambar',
+                ]);
         if ($validator->fails()) {
             return response()->json([
                 "status" => false,

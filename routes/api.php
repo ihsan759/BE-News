@@ -31,6 +31,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('show/{id}', [NewsController::class, 'show']);
         Route::post('update/{id}', [NewsController::class, 'update']);
         Route::post('destroy/{id}', [NewsController::class, 'destroy']);
-        Route::post('test', [NewsController::class, 'test']);
+        // Route::post('test', [NewsController::class, 'test']);
     });
 });
